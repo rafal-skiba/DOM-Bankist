@@ -28,3 +28,14 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+const btnScroll = document.querySelector(".btn--scroll-to");
+
+const section1 = document.querySelector('#section--1');
+
+btnScroll.addEventListener("click", (e) => {
+ 
+ section1.scrollIntoView({behavior: "smooth"});
+
+})
+
