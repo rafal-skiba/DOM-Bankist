@@ -44,9 +44,13 @@ const randomInt = (min, max) => Math.floor(Math.random() * (max - min))
 
 const randomColor = () => `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)} )`
 
-document.querySelector('.nav__link').addEventListener('click', function () {
+document.querySelectorAll('.nav__link').forEach(nav => nav.addEventListener('click', function () {
   this.style.color = randomColor()
-} )
+} ))
+
+
+
+
 
 console.log(randomColor())
 
