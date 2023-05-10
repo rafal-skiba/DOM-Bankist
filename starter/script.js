@@ -10,6 +10,7 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScroll = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector('#section--1');
 const navLinkAll = document.querySelectorAll('.nav__link');
+const navLinks = document.querySelector('.nav__links');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -57,14 +58,26 @@ navLinkAll.forEach(nav => nav.addEventListener('click', function () {
 
 //
 
-navLinkAll.forEach(function (el) {el.addEventListener('click', function (e) {
-e.preventDefault();
-
-const id = this.getAttribute('href');
-document.querySelector(id).scrollIntoView({behavior: 'smooth'})
-
-
-})} )
+navLinks.addEventListener('click', function (e) {
+  e.preventDefault();
+  const id = e.target.getAttribute('href');
+  document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+})
 
 
+const tabsContainer = document.querySelector(".operations__tab-container");
+
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContent = document.querySelectorAll(".operations__content")
+
+
+tabsContainer.addEventListener('click', function (e){
+ const clicked = e.target.closest('.operations__tab');
+
+if (!clicked) return;
+
+tabs.forEach((r) => r.classList.remove('operations__tab--active') )
+
+ clicked.classList.add('operations__tab--active')
+})
 
