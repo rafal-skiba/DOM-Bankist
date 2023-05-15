@@ -11,6 +11,7 @@ const btnScroll = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector('#section--1');
 const navLinkAll = document.querySelectorAll('.nav__link');
 const navLinks = document.querySelector('.nav__links');
+const nav = document.querySelector('.nav');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -45,7 +46,7 @@ btnScroll.addEventListener("click", (e) => {
 
 })
 
-//
+
 
 // randomColorchanger n nav
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min))
@@ -87,4 +88,21 @@ clicked.classList.add('operations__tab--active');
 document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 
 })
+
+// Nav Sticky position
+const inintialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function(e) {
+ if (this.window.scrollY > inintialCoords.top) {
+  nav.classList.add('sticky');
+ } else {
+  nav.classList.remove('sticky');
+ }
+
+
+})
+
+
+
+
 
