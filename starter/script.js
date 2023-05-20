@@ -41,8 +41,8 @@ document.addEventListener('keydown', function (e) {
 // button scroll
 
 btnScroll.addEventListener("click", (e) => {
- 
- section1.scrollIntoView({behavior: "smooth"});
+
+  section1.scrollIntoView({ behavior: "smooth" });
 
 })
 
@@ -55,14 +55,14 @@ const randomColor = () => `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${ran
 
 navLinkAll.forEach(nav => nav.addEventListener('click', function () {
   this.style.color = randomColor()
-} ))
+}))
 
 //
 
 navLinks.addEventListener('click', function (e) {
   e.preventDefault();
   const id = e.target.getAttribute('href');
-  document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+  document.querySelector(id).scrollIntoView({ behavior: 'smooth' })
 })
 
 
@@ -72,58 +72,68 @@ const tabs = document.querySelectorAll(".operations__tab");
 const tabsContent = document.querySelectorAll(".operations__content")
 
 
-tabsContainer.addEventListener('click', function (e){
- const clicked = e.target.closest('.operations__tab');
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
 
-if (!clicked) return;
+  if (!clicked) return;
 
-//remove class
+  //remove class
 
-tabs.forEach(r => r.classList.remove('operations__tab--active') );
-tabsContent.forEach(c => c.classList.remove('operations__content--active'))
+  tabs.forEach(r => r.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'))
 
 
-//activate class
-clicked.classList.add('operations__tab--active');
-document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+  //activate class
+  clicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 
 })
 
 // Nav Sticky position
 
-// const obsCallback = function (entries, observer) {
-//   entries.forEach(entry => {console.log(entry)})
-// };
-
-// const obsOptions = {};
-
-// const observer = new IntersectionObserver(obsCallback, {
-//   root: null,
-//   threshold: 0.5,
-// });
-
-// observer.observe(section1);
-
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries) {
-const [entry] = entries;
+  const [entry] = entries;
 
-if (!entry.isIntersecting) {
-  nav.classList.add('sticky');
-} else nav.classList.remove('sticky')
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else nav.classList.remove('sticky')
 }
 
-const headerObserver = new IntersectionObserver( stickyNav, {
-root: null,
-threshold: 0,
-rootMargin: `-${navHeight}px`
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`
 });
 
 headerObserver.observe(header);
 
 
+// reveal section animation
 
+const allSection = document.querySelectorAll('.section');
+
+
+const revealSection = function (entries, observer) {
+const [entry] = entries;
+
+if (!entry.isIntersecting) return;
+entry.target.classList.remove('section--hidden');
+observer.unobserve(entry.target);
+}
+
+
+const sectionObserver = new IntersectionObserver ( revealSection, {
+  root: null,
+  threshold: 0.18,
+})
+
+allSection.forEach(function(section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+
+} )
 
 
